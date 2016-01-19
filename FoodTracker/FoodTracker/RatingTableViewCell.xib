@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,20 +15,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="357" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orP-Y7-r7b">
-                        <rect key="frame" x="110" y="8" width="182" height="26"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAG-4w-eyu" customClass="RatingControl" customModule="FoodTracker" customModuleProvider="target">
+                        <rect key="frame" x="98" y="48" width="182" height="33"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lef-Ec-HLf">
+                        <rect key="frame" x="8" y="8" width="73" height="73"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Lef-Ec-HLf" secondAttribute="height" multiplier="1:1" id="jjW-kX-Ov5"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orP-Y7-r7b">
+                        <rect key="frame" x="98" y="8" width="182" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="182" id="XJc-Qf-Kk3"/>
+                            <constraint firstAttribute="height" constant="26" id="w0Y-42-eta"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CAG-4w-eyu" customClass="RatingControl" customModule="FoodTracker" customModuleProvider="target">
-                        <rect key="frame" x="110" y="48" width="182" height="33"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lef-Ec-HLf">
-                        <rect key="frame" x="8" y="8" width="85" height="73"/>
-                    </imageView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="CAG-4w-eyu" firstAttribute="leading" secondItem="orP-Y7-r7b" secondAttribute="leading" id="2Q0-oQ-IlX"/>
+                    <constraint firstItem="orP-Y7-r7b" firstAttribute="leading" secondItem="Lef-Ec-HLf" secondAttribute="trailing" constant="17" id="RJe-jn-WT9"/>
+                    <constraint firstItem="Lef-Ec-HLf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="V2k-U1-XTf"/>
+                    <constraint firstItem="Lef-Ec-HLf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="WOn-QA-1lh"/>
+                    <constraint firstItem="CAG-4w-eyu" firstAttribute="trailing" secondItem="orP-Y7-r7b" secondAttribute="trailing" id="aqc-6N-Yio"/>
+                    <constraint firstItem="Lef-Ec-HLf" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="bbw-XC-frx"/>
+                    <constraint firstItem="orP-Y7-r7b" firstAttribute="top" secondItem="Lef-Ec-HLf" secondAttribute="top" id="iHi-gA-Rzx"/>
+                    <constraint firstItem="CAG-4w-eyu" firstAttribute="bottom" secondItem="Lef-Ec-HLf" secondAttribute="bottom" id="kgp-aT-hQW"/>
+                    <constraint firstItem="CAG-4w-eyu" firstAttribute="top" secondItem="orP-Y7-r7b" secondAttribute="bottom" constant="14" id="nkv-Hw-LQc"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="nameLabel" destination="orP-Y7-r7b" id="5Vy-CJ-lXI"/>

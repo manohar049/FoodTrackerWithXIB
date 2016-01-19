@@ -25,4 +25,14 @@ class RatingTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            var recFrame = contentView.frame
+            recFrame.origin.x = self.showingDeleteConfirmation ? -15:38
+            contentView.frame = recFrame
+        }
+    }
+    
 }
