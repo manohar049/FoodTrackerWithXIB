@@ -21,15 +21,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         // MARK: Embedding Navigation Controller Properties
         self.navigationItem.title = "Ratings List"
-        let rgtBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addRating:")
-        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editRating:")
+        let rgtBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(ListViewController.addRating(_:)))
+        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: #selector(ListViewController.editRating(_:)))
         self.navigationItem.rightBarButtonItem = rgtBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         // Mark: Table view
 //        loadSampleMeals()
         let cellnib = UINib(nibName: "RatingTableViewCell", bundle: nil)
-        tableView.registerNib(cellnib, forCellReuseIdentifier: "RatingCell")
+        tableView.register(cellnib, forCellReuseIdentifier: "RatingCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,31 +37,31 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-    func addRating(button: UIButton) {
+    func addRating(_ button: UIButton) {
         let addEditViewController = ViewController(nibName: "ViewController", bundle: nil)
         addEditViewController.tableViewDelegate = tableView
         addEditViewController.mealsList = meals
         self.navigationController?.pushViewController(addEditViewController, animated: true)
     }
     
-    func editRating(button: UIButton) {
-        let leftBarDoneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneEditing:")
+    func editRating(_ button: UIButton) {
+        let leftBarDoneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(ListViewController.doneEditing(_:)))
         self.navigationItem.leftBarButtonItem = leftBarDoneButton
-        tableView.editing = true
+        tableView.isEditing = true
     }
     
-    func doneEditing(button: UIButton) {
-        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editRating:")
+    func doneEditing(_ button: UIButton) {
+        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: #selector(ListViewController.editRating(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
-        tableView.editing = false
+        tableView.isEditing = false
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return meals.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("RatingCell") as! RatingTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RatingCell") as! RatingTableViewCell
         let meal = meals[indexPath.row]
         cell.nameLabel.text = meal.name
         cell.photoView.image = meal.photo
@@ -69,7 +69,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = ViewController(nibName: "ViewController", bundle: nil)
         let cellValues = meals[indexPath.row]
         viewController.meal = cellValues
@@ -78,10 +78,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            meals.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            meals.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     

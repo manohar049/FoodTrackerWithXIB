@@ -29,12 +29,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         //Mark: Navigation Bar Properties
         
-        let rightBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "saveRatings:")
-        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "cancelSave:")
+        let rightBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(ViewController.saveRatings(_:)))
+        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(ViewController.cancelSave(_:)))
         self.navigationItem.title = "Your Rating"
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.isTranslucent = false
         if (meal != nil) {
             mealName.text = meal?.name
             mealImage.image = meal?.photo
@@ -50,32 +50,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Mark: Actions
     
-    @IBAction func selectImageFromGalary(sender: UITapGestureRecognizer) {
+    @IBAction func selectImageFromGalary(_ sender: UITapGestureRecognizer) {
         
         mealName.resignFirstResponder()
         
         let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         mealName.resignFirstResponder()
         let selectecImg = info[UIImagePickerControllerOriginalImage] as! UIImage
         mealImage.image = selectecImg
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func cancelSave(barButton: UIBarButtonItem) {
-        self.navigationController?.popViewControllerAnimated(true)
+    func cancelSave(_ barButton: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
     }
     
-    func saveRatings(barButton: UIBarButtonItem) {
+    func saveRatings(_ barButton: UIBarButtonItem) {
         let name = mealName.text
         let image = mealImage.image
         let rating = ratingControl.rating
@@ -97,14 +97,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.navigationController?.pushViewController(listView, animated: true)
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         validateName()
         self.navigationItem.title = textField.text
     }
     
     func validateName() {
         let text = mealName.text ?? ""
-        self.navigationItem.rightBarButtonItem?.enabled = !text.isEmpty
+        self.navigationItem.rightBarButtonItem?.isEnabled = !text.isEmpty
     }
     
 
