@@ -21,8 +21,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         // MARK: Embedding Navigation Controller Properties
         self.navigationItem.title = "Ratings List"
-        let rgtBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(ListViewController.addRating(_:)))
-        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: #selector(ListViewController.editRating(_:)))
+        let rgtBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(ListViewController.addRating(_:)))
+        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(ListViewController.editRating(_:)))
         self.navigationItem.rightBarButtonItem = rgtBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
         
@@ -37,21 +37,21 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-    func addRating(_ button: UIButton) {
+    @objc func addRating(_ button: UIButton) {
         let addEditViewController = ViewController(nibName: "ViewController", bundle: nil)
         addEditViewController.tableViewDelegate = tableView
         addEditViewController.mealsList = meals
         self.navigationController?.pushViewController(addEditViewController, animated: true)
     }
     
-    func editRating(_ button: UIButton) {
-        let leftBarDoneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(ListViewController.doneEditing(_:)))
+    @objc func editRating(_ button: UIButton) {
+        let leftBarDoneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(ListViewController.doneEditing(_:)))
         self.navigationItem.leftBarButtonItem = leftBarDoneButton
         tableView.isEditing = true
     }
     
-    func doneEditing(_ button: UIButton) {
-        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.edit, target: self, action: #selector(ListViewController.editRating(_:)))
+    @objc func doneEditing(_ button: UIButton) {
+        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(ListViewController.editRating(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
         tableView.isEditing = false
     }
@@ -78,7 +78,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             meals.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)

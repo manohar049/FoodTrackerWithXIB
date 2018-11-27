@@ -28,7 +28,7 @@ class RatingTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if editingStyle == UITableViewCellEditingStyle.delete {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
             var recFrame = contentView.frame
             recFrame.origin.x = self.showingDeleteConfirmation ? -15:38
             contentView.frame = recFrame

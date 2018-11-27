@@ -31,7 +31,7 @@ class RatingControl: UIView {
         for _ in 0..<5 {
             let button = UIButton()
             
-            button.setImage(emptyStarImage, for: UIControlState())
+            button.setImage(emptyStarImage, for: UIControl.State())
             button.setImage(filledStarImage, for: .selected)
             button.setImage(filledStarImage, for: [.highlighted, .selected])
             
@@ -65,7 +65,7 @@ class RatingControl: UIView {
     
     // MARK: Button Action
     
-    func ratingButtonTapped(_ button: UIButton) {
+    @objc func ratingButtonTapped(_ button: UIButton) {
         rating = ratingButtons.index(of: button)! + 1
         
         updateButtonSelectionStates()

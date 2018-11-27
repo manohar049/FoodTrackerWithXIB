@@ -29,8 +29,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         //Mark: Navigation Bar Properties
         
-        let rightBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(ViewController.saveRatings(_:)))
-        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(ViewController.cancelSave(_:)))
+        let rightBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.save, target: self, action: #selector(ViewController.saveRatings(_:)))
+        let leftBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(ViewController.cancelSave(_:)))
         self.navigationItem.title = "Your Rating"
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
@@ -64,18 +64,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         mealName.resignFirstResponder()
-        let selectecImg = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let selectecImg = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as! UIImage
         mealImage.image = selectecImg
         dismiss(animated: true, completion: nil)
     }
     
-    func cancelSave(_ barButton: UIBarButtonItem) {
+    @objc func cancelSave(_ barButton: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func saveRatings(_ barButton: UIBarButtonItem) {
+    @objc func saveRatings(_ barButton: UIBarButtonItem) {
         let name = mealName.text
         let image = mealImage.image
         let rating = ratingControl.rating
@@ -118,4 +121,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     */
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }
